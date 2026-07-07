@@ -1,16 +1,55 @@
-# React + Vite
+# Kanban Task Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Kanban Task Board developed for **Sprint 05** of the Prodesk IT Internship Program.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project is a modern task management application inspired by Trello that helps users organize their workflow efficiently.
 
-## React Compiler
+Users can create tasks, assign priorities, edit task details, search tasks instantly, and manage their workflow by dragging and dropping tasks between different columns.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The application includes:
 
-## Expanding the ESLint configuration
+* Responsive User Interface
+* Drag & Drop Task Management
+* Three Workflow Columns (To Do, In Progress, Done)
+* Inline Task Editing
+* Real-time Search Functionality
+* Priority-based Task Classification
+* Local Storage Persistence
+* Modern Card-Based UI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+* React.js
+* Vite
+* JavaScript (ES6+)
+* Tailwind CSS
+* dnd-kit
+* Local Storage
+* Git & GitHub
+
+## Features
+
+* Create new tasks
+* Drag and drop tasks between columns
+* Edit task names inline
+* Delete tasks
+* Search tasks in real time
+* Priority levels (High, Medium, Low)
+* Automatic data persistence using Local Storage
+* Responsive design for desktop and mobile devices
+
+## Screenshot
+
+![Home Page](ss/ss.png)
+
+
+
+## Live Demo
+
+
+
+## GitHub Repository
+
+

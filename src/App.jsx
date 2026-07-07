@@ -21,6 +21,19 @@ function App() {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const editTask = (id, text) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              text,
+            }
+          : task
+      )
+    );
+  };
+
   const moveTask = (id, direction) => {
     setTasks((prev) =>
       prev.map((task) => {
@@ -36,43 +49,31 @@ function App() {
           else if (status === "progress") status = "todo";
         }
 
-        return { ...task, status };
+        return {
+          ...task,
+          status,
+        };
       })
     );
   };
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
+  const handleDragEnd = ({ active, over }) => {
     if (!over) return;
 
     setTasks((prev) =>
       prev.map((task) =>
         task.id === active.id
           ? {
-            ...task,
-            status: over.id,
-          }
-          : task
-      )
-    );
-  };
-
-  const editTask = (id, text) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? {
-            ...task,
-            text,
-          }
+              ...task,
+              status: over.id,
+            }
           : task
       )
     );
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 px-5 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 py-10 px-4">
       <div className="mx-auto max-w-7xl">
         <Header
           search={search}

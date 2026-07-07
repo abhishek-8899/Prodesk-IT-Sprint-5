@@ -1,8 +1,4 @@
-import {
-  DndContext,
-  closestCenter,
-} from "@dnd-kit/core";
-
+import { DndContext } from "@dnd-kit/core";
 import Column from "./Column";
 
 function Board({
@@ -17,17 +13,12 @@ function Board({
   );
 
   return (
-    <DndContext
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext onDragEnd={handleDragEnd}>
       <div className="grid gap-6 lg:grid-cols-3">
         <Column
           id="todo"
           title="To Do"
-          tasks={filteredTasks.filter(
-            (task) => task.status === "todo"
-          )}
+          tasks={filteredTasks.filter((task) => task.status === "todo")}
           deleteTask={deleteTask}
           editTask={editTask}
         />
@@ -35,9 +26,7 @@ function Board({
         <Column
           id="progress"
           title="In Progress"
-          tasks={filteredTasks.filter(
-            (task) => task.status === "progress"
-          )}
+          tasks={filteredTasks.filter((task) => task.status === "progress")}
           deleteTask={deleteTask}
           editTask={editTask}
         />
@@ -45,9 +34,7 @@ function Board({
         <Column
           id="done"
           title="Done"
-          tasks={filteredTasks.filter(
-            (task) => task.status === "done"
-          )}
+          tasks={filteredTasks.filter((task) => task.status === "done")}
           deleteTask={deleteTask}
           editTask={editTask}
         />

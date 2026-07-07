@@ -1,91 +1,109 @@
 import { useState } from "react";
-import { useSortable } from "@dnd-kit/sortable";
+import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
 function TaskCard({ task, deleteTask, editTask }) {
-  const [editing, setEditing] = useState(false);
-  const [text, setText] = useState(task.text);
+    const [editing, setEditing] = useState(false);
+    const [value, setValue] = useState(task.text);
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: task.id,
-  });
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: task.id,
+    });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+    const style = {
+        transform: CSS.Translate.toString(transform),
+    };
 
-  const borderColor = {
-    High: "border-red-500",
-    Medium: "border-yellow-500",
-    Low: "border-green-500",
-  };
+    const priorityStyle = {
+        High: {
+            border: "border-red-500",
+            badge: "bg-red-100 text-red-600",
+        },
+        Medium: {
+            border: "border-yellow-500",
+            badge: "bg-yellow-100 text-yellow-700",
+        },
+        Low: {
+            border: "border-green-500",
+            badge: "bg-green-100 text-green-700",
+        },
+    };
 
-  const saveEdit = () => {
-    if (!text.trim()) return;
+    const saveTask = () => {
+        if (!value.trim()) {
+            setValue(task.text);
+            setEditing(false);
+            return;
+        }
 
-    editTask(task.id, text.trim());
-    setEditing(false);
-  };
+        editTask(task.id, value.trim());
+        setEditing(false);
+    };
 
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className={`
-        rounded-xl
-        border-l-4
-        bg-white
-        p-4
-        shadow
-        cursor-grab
-        active:cursor-grabbing
-        transition
-        ${borderColor[task.priority]}
-        ${isDragging ? "opacity-40 scale-95" : ""}
-      `}
-    >
-      {editing ? (
-        <input
-          autoFocus
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onBlur={saveEdit}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") saveEdit();
-          }}
-          className="w-full rounded border px-2 py-1"
-        />
-      ) : (
-        <h3
-          onDoubleClick={() => setEditing(true)}
-          className="font-semibold"
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            className={`rounded-xl border-l-4 bg-white p-4 shadow transition hover:shadow-lg cursor-grab active:cursor-grabbing ${priorityStyle[task.priority].border}`}
         >
-          {task.text}
-        </h3>
-      )}
+            <div className="mb-3 flex items-center justify-between">
 
-      <p className="mt-2 text-sm text-gray-500">
-        {task.priority}
-      </p>
 
-      <button
-        onClick={() => deleteTask(task.id)}
-        className="mt-4 rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600"
-      >
-        Delete
-      </button>
-    </div>
-  );
+                <button
+                    {...listeners}
+                    {...attributes}
+                    className="cursor-grab rounded p-1 text-slate-500 hover:bg-slate-100 active:cursor-grabbing"
+                    title="Drag"
+                >
+                    ☰
+                </button>
+            </div>
+            {editing ? (
+                <input
+                    onPointerDown={(e) => e.stopPropagation()}
+                    autoFocus
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onBlur={saveTask}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") saveTask();
+                    }}
+                    className="w-full rounded border border-slate-300 px-2 py-1 outline-none focus:border-blue-500"
+                />
+            ) : (
+                <h3
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={() => setEditing(true)}
+                    className="cursor-pointer font-semibold text-slate-800"
+                >
+                    {task.text}
+                </h3>
+            )}
+
+            <div className="mt-3 flex items-center justify-between">
+                <span
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${priorityStyle[task.priority].badge}`}
+                >
+                    {task.priority}
+                </span>
+
+
+            </div>
+
+            <div className="mt-5 flex items-center justify-between">
+
+
+                <button
+                    onClick={() => deleteTask(task.id)}
+                    className="rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+                >
+                    Delete
+                </button>
+
+
+            </div>
+        </div>
+    );
 }
 
 export default TaskCard;
