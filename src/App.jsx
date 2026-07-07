@@ -73,7 +73,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 py-10 px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 via-slate-200 to-slate-300 py-10 px-4">
       <div className="mx-auto max-w-7xl">
         <Header
           search={search}

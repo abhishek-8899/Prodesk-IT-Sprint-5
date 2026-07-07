@@ -31,7 +31,7 @@ function Column({
         </span>
       </div>
 
-      <div className="min-h-[350px] space-y-4">
+      <div className="min-h-87.5 space-y-4">
         {tasks.length === 0 ? (
           <div className="flex h-32 items-center justify-center rounded-xl border-2 border-dashed border-slate-300 text-sm text-slate-400">
             Drop task here
